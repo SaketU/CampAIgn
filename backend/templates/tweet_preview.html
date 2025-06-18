@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tweet Preview</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #15202B;
+            color: #FFFFFF;
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .tweet-container {
+            background-color: #192734;
+            border-radius: 15px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .tweet-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .profile-pic {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            margin-right: 10px;
+            background-color: #657786;
+        }
+        .user-info {
+            flex-grow: 1;
+        }
+        .user-name {
+            font-weight: bold;
+            margin: 0;
+        }
+        .user-handle {
+            color: #8899A6;
+            margin: 0;
+        }
+        .tweet-content {
+            margin: 10px 0;
+            line-height: 1.4;
+            white-space: pre-wrap;
+        }
+        .tweet-stats {
+            display: flex;
+            justify-content: space-between;
+            color: #8899A6;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #38444D;
+        }
+        .hashtags {
+            color: #1DA1F2;
+            margin-top: 10px;
+        }
+        .timestamp {
+            color: #8899A6;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="tweet-container">
+        <div class="tweet-header">
+            <div class="profile-pic"></div>
+            <div class="user-info">
+                <p class="user-name">{{ account }}</p>
+                <p class="user-handle">@{{ account }}</p>
+            </div>
+        </div>
+        <div class="tweet-content">{{ tweet_text }}</div>
+        {% if hashtags %}
+        <div class="hashtags">{{ hashtags|join(' ') }}</div>
+        {% endif %}
+        <div class="timestamp">{{ timestamp }}</div>
+        <div class="tweet-stats">
+            <span>0 Comments</span>
+            <span>0 Retweets</span>
+            <span>0 Likes</span>
+        </div>
+    </div>
+</body>
+</html> 
