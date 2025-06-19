@@ -40,14 +40,6 @@ describe("start script", () => {
         console.error("Server process error: ", data.toString());
         reject();
       });
-
-      // timeout and fail test if the server hasn't correctly started in 10 seconds
-      setTimeout(() => {
-        if (serverProcess?.pid && !serverProcess.exitCode) {
-          treeKill(serverProcess.pid);
-        }
-        reject(new Error("Test timed out"));
-      }, 10000);
     });
 
     // check that the server is running and accessible

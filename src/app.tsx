@@ -39,7 +39,7 @@ export function App() {
     setTwitterResult(null);
     try {
       const BACKEND_HOST = process.env.CANVA_BACKEND_HOST || "http://localhost:3001";
-      console.log("▶️ Publishing to:", BACKEND_HOST, "/api/publish");
+      console.log("Publish button clicked!");
       let body: any = {};
       let endpoint = "";
       if (activeTab === "Mailchimp") {
