@@ -21,6 +21,11 @@ logger = logging.getLogger(__name__)
 backend_dir = Path(__file__).resolve().parent
 load_dotenv(backend_dir / '.env')
 
+# Read the Canva App Origin from .env
+canva_origin = os.getenv("CANVA_APP_ORIGIN")
+if not canva_origin:
+    raise RuntimeError("CANVA_APP_ORIGIN is not set in your environment")
+
 # Debug: Print environment variables
 logger.debug("Checking environment variables:")
 logger.debug(f"OPENAI_API_KEY: {'Set' if os.getenv('OPENAI_API_KEY') else 'Not set'}")
@@ -39,19 +44,14 @@ openai.api_key = os.getenv('OPENAI_API_KEY')
 app = Flask(__name__)
 app.secret_key = os.getenv('FLASK_SECRET_KEY', 'dev-secret-key')  # For session management
 
-# Update CORS configuration
-CORS(app, resources={
-    r"/*": {
-        "origins": [
-            "https://*.canva-apps.com",
-            "https://www.canva.com",
-            "http://localhost:3000"  # for local development
-        ],
-        "methods": ["GET", "POST", "OPTIONS"],
-        "allow_headers": ["Content-Type", "Authorization"],
-        "supports_credentials": True
-    }
-})
+# Enable CORS for all routes under /api/* for the Canva app origin only
+CORS(
+    app,
+    resources={r"/api/*": {"origins": canva_origin}},
+    supports_credentials=True,
+    methods=["GET", "POST", "OPTIONS"],
+    allow_headers=["Content-Type", "Authorization"]
+)
 
 # Add request verification middleware
 @app.before_request
