@@ -147,13 +147,14 @@ export class Context {
       );
     }
 
-    if (!CANVA_BACKEND_PORT) {
-      throw new Error("CANVA_BACKEND_PORT environment variable is not defined");
+    // Only require CANVA_BACKEND_PORT if CANVA_BACKEND_HOST is not set
+    if (!CANVA_BACKEND_HOST && !CANVA_BACKEND_PORT) {
+      throw new Error("CANVA_BACKEND_PORT environment variable is not defined (and CANVA_BACKEND_HOST is also not set)");
     }
 
     const envVars: EnvVars = {
       frontendPort: parseInt(CANVA_FRONTEND_PORT, 10),
-      backendPort: parseInt(CANVA_BACKEND_PORT, 10),
+      backendPort: CANVA_BACKEND_PORT ? parseInt(CANVA_BACKEND_PORT, 10) : 0,
       hmrEnabled: CANVA_HMR_ENABLED?.toLowerCase().trim() === "true",
       appId: CANVA_APP_ID,
       appOrigin: CANVA_APP_ORIGIN,

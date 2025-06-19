@@ -11,6 +11,7 @@ from pathlib import Path
 import tweepy
 from datetime import datetime
 import urllib.parse
+from canva import verify_request
 
 # Configure logging
 logging.basicConfig(level=logging.DEBUG)
@@ -37,7 +38,30 @@ openai.api_key = os.getenv('OPENAI_API_KEY')
 
 app = Flask(__name__)
 app.secret_key = os.getenv('FLASK_SECRET_KEY', 'dev-secret-key')  # For session management
-CORS(app, supports_credentials=True)
+
+# Update CORS configuration
+CORS(app, resources={
+    r"/*": {
+        "origins": [
+            "https://*.canva-apps.com",
+            "https://www.canva.com",
+            "http://localhost:3000"  # for local development
+        ],
+        "methods": ["GET", "POST", "OPTIONS"],
+        "allow_headers": ["Content-Type", "Authorization"],
+        "supports_credentials": True
+    }
+})
+
+# Add request verification middleware
+@app.before_request
+def verify_canva_request():
+    if request.path.startswith('/api/'):
+        try:
+            verify_request(request)
+        except Exception as e:
+            logger.error(f"Request verification failed: {str(e)}")
+            return jsonify({"error": "Invalid request"}), 401
 
 # Store platform credentials (in a real app, this would be in a secure database)
 PLATFORM_CREDENTIALS = {
