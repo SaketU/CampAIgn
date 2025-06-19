@@ -91,18 +91,18 @@ export function App() {
     } catch (e) {
       // ignore parse error
     }
-    return (
+      return (
       <Box paddingTop="2u">
         {tweetText && (
           <Box paddingBottom="1u">
             <Text><strong>Generated Tweet:</strong> {tweetText}</Text>
-          </Box>
-        )}
+            </Box>
+          )}
         {hashtagsArr.length > 0 && (
           <Box paddingBottom="1u">
             <Text><strong>Hashtags:</strong> {hashtagsArr.join(" ")}</Text>
-          </Box>
-        )}
+            </Box>
+          )}
         {twitterResult.preview_url && (
           <Button
             variant="secondary"
@@ -111,8 +111,8 @@ export function App() {
           >
             Preview Tweet
           </Button>
-        )}
-      </Box>
+          )}
+        </Box>
     );
   };
 
@@ -150,7 +150,7 @@ export function App() {
               onChange={setMailchimpBody}
               placeholder="Email body"
             />
-          </Box>
+            </Box>
           <Box paddingTop="1u">
             <Text>Call to Action</Text>
             <TextInput
@@ -158,7 +158,7 @@ export function App() {
               onChange={setMailchimpCTA}
               placeholder="Call to action"
             />
-          </Box>
+            </Box>
           <Box paddingTop="2u">
             <Button
               variant="primary"
@@ -169,7 +169,7 @@ export function App() {
             >
               Publish to Mailchimp
             </Button>
-          </Box>
+            </Box>
         </Box>
       )}
       {activeTab === "Twitter" && (
@@ -217,28 +217,28 @@ export function App() {
               value={linkedinHashtags}
               onChange={setLinkedinHashtags}
               placeholder="#hashtag1 #hashtag2"
-            />
-          </Box>
+          />
+        </Box>
           <Box paddingTop="2u">
-            <Button
-              variant="primary"
-              onClick={handlePublish}
+        <Button
+          variant="primary"
+          onClick={handlePublish}
               disabled={!linkedinPost || isLoading}
-              loading={isLoading}
-              stretch
-            >
+          loading={isLoading}
+          stretch
+        >
               Publish to LinkedIn
-            </Button>
+        </Button>
           </Box>
         </Box>
       )}
-      {status && (
+        {status && (
         <Box paddingTop="2u">
           <Text tone={status.includes("Error") ? "critical" : "secondary"}>
             {status}
           </Text>
-        </Box>
-      )}
+          </Box>
+        )}
     </div>
   );
 }
