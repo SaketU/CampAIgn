@@ -1,4 +1,6 @@
-# Canva App
+# CampAIgn
+
+CampAIgn is an AI-powered Canva app that instantly generates campaign messaging for emails, social posts and tweets, allowing you to pair your design with the generated message and post directly to Mailchimp, LinkedIn or Twitter within your Canva canvas.
 
 Welcome to your Canva App! 🎉
 
